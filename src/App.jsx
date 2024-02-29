@@ -20,13 +20,16 @@ function App() {
   const downloadQRCode = () => {
     const canvas = qrCodeRef.current;
     const context = canvas.getContext("2d");
-
+  
     const img = new Image();
     img.crossOrigin = "anonymous";
     img.src = QR;
-
+  
     img.onload = () => {
+      canvas.width = img.width;
+      canvas.height = img.height;
       context.drawImage(img, 0, 0);
+  
       const dataUrl = canvas.toDataURL("image/png");
       const link = document.createElement("a");
       link.href = dataUrl;
@@ -36,6 +39,7 @@ function App() {
       document.body.removeChild(link);
     };
   };
+  
 
   const clearInput = () => {
     setInputValue("");
@@ -100,8 +104,8 @@ function App() {
                   onClick={clearInput}
                   className="bg-gradient-to-r from-red-500 via-red-600 to-red-700 px-3 py-1 text-white shadow-md border-b-2 border-r-2 border-t-2 border-l-2 border-red-800 hover:from-red-700 hover:to-red-800 transition-all duration-300"
                 >
-              Clear
-            </button>
+                  Clear
+                </button>
               </div>
             )}
           </div>
